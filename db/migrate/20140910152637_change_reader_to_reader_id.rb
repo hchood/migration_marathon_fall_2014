@@ -3,6 +3,8 @@ class ChangeReaderToReaderId < ActiveRecord::Migration
     add_column :checkouts, :reader_id, :integer, null: false
     rename_column :checkouts, :reader, :reader_name
 
+    Checkout.reset_column_information
+
     checkouts = Checkout.all
     checkouts.each do |checkout|
       reader_attrs = {
@@ -22,6 +24,7 @@ class ChangeReaderToReaderId < ActiveRecord::Migration
   def down
     add_column :checkouts, :reader_name, :string, null: false
 
+    Checkout.reset_column_information
     checkouts = Checkout.all
     checkouts.each do |checkout|
       checkout.reader_name = reader.first_name
