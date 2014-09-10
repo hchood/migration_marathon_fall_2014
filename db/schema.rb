@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140910144052) do
+ActiveRecord::Schema.define(version: 20140910145911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,12 @@ ActiveRecord::Schema.define(version: 20140910144052) do
     t.string  "author", null: false
     t.integer "rating"
   end
+
+  create_table "categories", force: true do |t|
+    t.string "name", null: false
+  end
+
+  add_index "categories", ["name"], name: "index_categories_on_name", unique: true, using: :btree
 
   create_table "checkouts", force: true do |t|
     t.integer  "book_id",    null: false
