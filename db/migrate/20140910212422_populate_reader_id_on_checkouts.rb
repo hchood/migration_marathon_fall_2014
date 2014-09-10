@@ -3,9 +3,12 @@ class PopulateReaderIdOnCheckouts < ActiveRecord::Migration
     checkouts = Checkout.all
 
     checkouts.each do |checkout|
+      first_name = checkout.reader_name.split[0]
+      last_name = checkout.reader_name.split[1..-1].join(" ")
+
       reader_attrs = {
-        first_name: checkout.reader_name,
-        last_name: 'Smith',
+        first_name: first_name,
+        last_name: last_name,
         email: "#{checkout.reader_name}smith@example.com",
         phone_number: '(617) 555-2349'
       }
